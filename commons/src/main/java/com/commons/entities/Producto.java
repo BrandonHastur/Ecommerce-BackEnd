@@ -1,0 +1,87 @@
+package com.commons.entities;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="PRODUCTO")
+public class Producto {
+	
+	@Id
+	@GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "SEQ_PRODUCTO" )
+	@SequenceGenerator (name = "SEQ_PRODUCTO", sequenceName = "SEQ_PRODUCTO", allocationSize = 1)
+	@Column(name="ID_PRODUCTO")
+	Long id;
+	
+	@Column(name = "ID_PEDIDO")
+	Long pedido;
+	
+	@Column(name = "NOMBRE")
+	String nombre;
+	
+	@Column(name = "DESCRIPCION")
+	String descripcion;
+	
+	@Column(name = "PRECIO")
+	Long precio;
+	
+	@Column(name = "STOCK")
+	Long stock;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Long pedido) {
+		this.pedido = pedido;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Long getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Long precio) {
+		this.precio = precio;
+	}
+
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
+	}
+	
+	
+	
+	
+}
