@@ -18,9 +18,6 @@ public class Producto {
 	@Column(name="ID_PRODUCTO")
 	Long id;
 	
-	@Column(name = "ID_PEDIDO")
-	Long pedido;
-	
 	@Column(name = "NOMBRE")
 	String nombre;
 	
@@ -41,13 +38,6 @@ public class Producto {
 		this.id = id;
 	}
 
-	public Long getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Long pedido) {
-		this.pedido = pedido;
-	}
 
 	public String getNombre() {
 		return nombre;

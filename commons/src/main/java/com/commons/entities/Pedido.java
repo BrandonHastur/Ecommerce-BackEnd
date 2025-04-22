@@ -26,6 +26,9 @@ public class Pedido {
 	
 	@Column(name = "ID_ESTATUS")
 	Long idEstatus;
+	
+	@Column(name = "ID_PRODUCTO")
+	Long idProducto;
 
 	public Long getId() {
 		return id;

@@ -9,11 +9,9 @@ public class ProductoDTO {
 	Long id;
 	Long idPedido;
 	
-	@Max(value = 32, message = "El nombre no puede tener mas de 32 caracteres")
 	@NotNull(message = "El nombre no puede ser nulo")
 	String nombre;
 	
-	@Max(value= 99, message= "La descripcion no puede tener mas de 99 caracteres")
 	@NotNull(message = "La descripcion no puede ser nula")
 	String descripcion;
 	

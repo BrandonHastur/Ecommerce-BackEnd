@@ -1,0 +1,107 @@
+DROP TABLE PRODUCTO;
+DROP TABLE PEDIDO;
+DROP TABLE ESTATUS_PEDIDO;
+DROP TABLE CLIENTE;
+
+SELECT * FROM ESTATUS_PEDIDO;
+SELECT * FROM CLIENTE;
+SELECT * FROM PRODUCTO;
+SELECT * FROM PEDIDO;
+
+
+--+------------------------+
+--|    ESTATUS_PEDIDO      |
+--+------------------------+
+--| ID_ESTATUS (PK)        |
+--| TIPO_ESTATUS           |
+--+------------------------+
+
+
+CREATE TABLE ESTATUS_PEDIDO (
+    ID_ESTATUS NUMBER(1,0) NOT NULL,
+    TIPO_ESTATUS VARCHAR2(50 BYTE) NOT NULL,
+    CONSTRAINT PK_ESTATUS PRIMARY KEY (ID_ESTATUS)
+);
+
+
+
+
+--+-------------------+
+--|     Cliente       |
+--+-------------------+
+--| ID (PK)           |
+--| Nombre            |
+--| Apellido          |
+--| Email (UNQ)       |
+--| Teléfono (UNQ)    |
+--| Dirección         |
+--+-------------------+
+
+
+
+CREATE TABLE CLIENTE (
+    ID_CLIENTE INT,
+    NOMBRE VARCHAR2(35) NOT NULL,
+    APELLIDO VARCHAR2(35) NOT NULL,
+    EMAIL VARCHAR2(100) NOT NULL,
+    TELEFONO NUMBER(10,0) NOT NULL,
+    DIRECCION VARCHAR2(100),
+    CONSTRAINT PK_CLIENTES PRIMARY KEY (ID_CLIENTE),
+    CONSTRAINT UQ_CLIENTES_EMAIL UNIQUE (EMAIL),
+    CONSTRAINT UQ_CLIENTES_TELEFONO UNIQUE (TELEFONO)
+);
+
+
+
+--+-------------------+
+--|     Producto      |
+--+-------------------+
+--| ID (PK)           |
+--| ID_Pedido (FK?)   |
+--| Nombre            |
+--| Descripción       |
+--| Precio            |
+--| Stock             |
+--+-------------------+
+
+
+
+CREATE TABLE PRODUCTO (
+    ID_PRODUCTO NUMBER NOT NULL,
+    NOMBRE VARCHAR2(35) NOT NULL,
+    DESCRIPCION VARCHAR2(100) NOT NULL,
+    PRECIO NUMBER(10,2) NOT NULL,
+    STOCK NUMBER(10,0) NOT NULL,
+    CONSTRAINT PK_PRODUCTO PRIMARY KEY (ID_PRODUCTO),
+    CONSTRAINT CK_PRODUCTO_PRECIO_POSITIVO CHECK (PRECIO >= 0),
+    CONSTRAINT CK_PRODUCTO_STOCK_POSITIVO CHECK (STOCK >= 0)
+);
+
+
+--+----------------------+
+--|       PEDIDOS        |
+--+----------------------+
+--| ID (PK)              |
+--| ID_Cliente (FK)      |
+--| Total                |
+--| ID_Estatus (FK)      |
+--+----------------------+
+
+
+
+CREATE TABLE PEDIDO (
+    ID_PEDIDO NUMBER NOT NULL,
+    ID_CLIENTE NUMBER NOT NULL,
+    TOTAL NUMBER(12,2) NOT NULL,
+    ID_ESTATUS NUMBER(2) NOT NULL,
+    ID_PRODUCTO NUMBER NOT NULL,
+    CONSTRAINT PK_PEDIDO PRIMARY KEY (ID_PEDIDO),
+    CONSTRAINT FK_PEDIDO_CLIENTE FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTE(ID_CLIENTE),
+    CONSTRAINT FK_PEDIDO_ESTATUS FOREIGN KEY (ID_ESTATUS) REFERENCES ESTATUS_PEDIDO(ID_ESTATUS),
+    CONSTRAINT FK_PEDIDO_PRODUCTO FOREIGN KEY (ID_PRODUCTO) REFERENCES PRODUCTO(ID_PRODUCTO)
+);
+
+
+
+
+
