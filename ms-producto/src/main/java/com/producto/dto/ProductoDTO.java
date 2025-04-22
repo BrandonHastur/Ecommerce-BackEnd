@@ -1,13 +1,12 @@
 package com.producto.dto;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class ProductoDTO {
 	
 	Long id;
-	Long idPedido;
+	
 	
 	@NotNull(message = "El nombre no puede ser nulo")
 	String nombre;
@@ -15,13 +14,11 @@ public class ProductoDTO {
 	@NotNull(message = "La descripcion no puede ser nula")
 	String descripcion;
 	
-	@Max(value= 10, message= "El precio no puede tener mas de 10 caracteres")
-	@Min(value= 1, message= "El precio no puede tener menos de 1 caracter")
+	@Min(value = 1 , message = " no puede ser negativo o igual a cero")
 	@NotNull(message = "El precio no puede ser nulo")
 	Long precio;
 	
-	@Max(value= 10, message= "El stock no puede tener mas de 10 caracteres")
-	@Min(value= 1, message= "El stock no puede tener menos de 1 caracter")
+	@Min(value = 0 , message = "El stock no puede ser negativo")
 	@NotNull(message = "El stock no puede ser nulo")
 	Long stock;
 
@@ -31,14 +28,6 @@ public class ProductoDTO {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getIdPedido() {
-		return idPedido;
-	}
-
-	public void setIdPedido(Long idPedido) {
-		this.idPedido = idPedido;
 	}
 
 	public String getNombre() {

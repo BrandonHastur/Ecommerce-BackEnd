@@ -3,6 +3,6 @@ package com.producto.services;
 import com.commons.services.CommonsService;
 import com.producto.dto.ProductoDTO;
 
-public class ProductoService extends CommonsService<ProductoDTO>{
+public interface ProductoService extends CommonsService<ProductoDTO>{
 	
 }

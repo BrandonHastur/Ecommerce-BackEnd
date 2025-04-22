@@ -13,7 +13,8 @@ import com.producto.mappers.ProductoMapper;
 import com.producto.repositories.ProductoRepository;
 
 @Service
-public class ProductoServiceImpl extends CommonsServiceImpl<ProductoDTO, Producto, ProductoMapper,ProductoRepository>{
+public class ProductoServiceImpl extends CommonsServiceImpl<ProductoDTO, Producto, ProductoMapper,ProductoRepository>
+implements ProductoService{
 
 	@Override
 	public List<ProductoDTO> listar() {
@@ -35,8 +36,8 @@ public class ProductoServiceImpl extends CommonsServiceImpl<ProductoDTO, Product
 
 	@Override
 	public ProductoDTO insertar(ProductoDTO dto) {
-		repository.save(mapper.dtoToEntity(dto));
-		return dto;
+		Producto producto = repository.save(mapper.dtoToEntity(dto));
+		return mapper.entityToDTO(producto);
 	}
 
 	@Override
