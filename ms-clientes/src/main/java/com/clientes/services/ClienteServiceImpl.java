@@ -1,5 +1,6 @@
 package com.clientes.services;
 
+import java.lang.management.ManagementPermission;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +37,8 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 
 	@Override
 	public ClienteDTO insertar(ClienteDTO dto) {
-		repository.save(mapper.dtoToEntity(dto));
-		return dto;
+		Cliente cliente = repository.save(mapper.dtoToEntity(dto));
+		return mapper.entityToDTO(cliente);
 	}
 
 	@Override
