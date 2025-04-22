@@ -1,5 +1,6 @@
 package com.clientes.dto;
 
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -9,25 +10,20 @@ public class ClienteDTO {
 
 	Long id;
 	
-	@Max(value = 35, message = "El nombre debe tener un maximo de 35 caracteres")
 	@NotNull(message = "El nombre no puede ser nulo")
 	String nombre;
 	
 	@NotNull(message = "El apellido no puede ser nulo")
-	@Max(value = 35, message = "El apellido debe tener un maximo de 35 caracteres")
 	String apellido;
 	
 	@Email(message = "No es un email valido")
-	@Max(value = 100, message = "El e-mail debe tener un maximo de 100 caracteres")
 	@NotNull(message = "El e-mail no puede ser nulo")
 	String email;
 	
-	@Min(value = 10, message = "El numero no puede ser menor a 10 digitos")
-	@Max(value = 10, message = "El numero no puede ser mayor a 10 digitos")
+    @Digits(integer = 10, fraction = 0, message = "El teléfono debe tener exactamente 10 dígitos")
 	@NotNull(message = "El telefono no puede ser nulo")
 	Long telefono;
 	
-	@Max(value = 100, message = "La direccion maxima es de 100 caracteres")
 	String direccion;
 
 	public Long getId() {
