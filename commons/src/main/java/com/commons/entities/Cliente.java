@@ -17,22 +17,22 @@ public class Cliente {
 	@GeneratedValue ( strategy = GenerationType.SEQUENCE, generator = "SEQ_CLIENTE" )
 	@SequenceGenerator (name = "SEQ_CLIENTE", sequenceName = "SEQ_CLIENTE", allocationSize = 1)
 	@Column(name = "ID_CLIENTE")
-	Long id;
+	private Long id;
 	
 	@Column(name = "NOMBRE")
-	String nombre;
+	private String nombre;
 	
 	@Column(name = "APELLIDO")
-	String apellido;
+	private String apellido;
 	
 	@Column(name = "EMAIL", unique = true)
-	String email;
+	private String email;
 	
 	@Column(name = "TELEFONO", unique = true)
-	Long telefono;
+	private Long telefono;
 	
 	@Column(name = "DIRECCION")
-	String direccion;
+	private String direccion;
 
 	public Long getId() {
 		return id;

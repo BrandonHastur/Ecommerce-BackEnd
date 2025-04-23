@@ -7,8 +7,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+
 
 @Entity
 @Table (name = "PEDIDO")
@@ -18,19 +23,23 @@ public class Pedido {
 	@GeneratedValue ( strategy = GenerationType.SEQUENCE, generator = "SEQ_PEDIDO" )
 	@SequenceGenerator (name = "SEQ_PEDIDO", sequenceName = "SEQ_PEDIDO", allocationSize = 1)
 	@Column(name = "ID_PEDIDO")
-	Long id;
+	private Long id;
 	
-	@Column(name = "ID_CLIENTE")
-	Long idCliente;
+	@ManyToOne
+    @JoinColumn(name = "ID_CLIENTE") // Esta columna está en la tabla Pedido
+    private Cliente cliente;
 	
 	@Column(name = "TOTAL")
-	Double total;
+	private Double total;
 	
 	@Column(name = "ID_ESTATUS")
-	Long idEstatus;
+	private Long idEstatus;
 	
-	@Column(name = "ID_PRODUCTO")
-	List<Long> idProducto;
+	@ManyToMany
+	@JoinTable(name = "PEDIDO_PRODUCTO",
+	    joinColumns = @JoinColumn(name = "ID_PEDIDO"),
+	    inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
+	private List<Producto> productos;
 
 	public Long getId() {
 		return id;
@@ -40,12 +49,14 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public Long getIdCliente() {
-		return idCliente;
+
+
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Double getTotal() {
@@ -64,13 +75,15 @@ public class Pedido {
 		this.idEstatus = idEstatus;
 	}
 
-	public List<Long> getIdProducto() {
-		return idProducto;
+	public List<Producto> getProductos() {
+		return productos;
 	}
 
-	public void setIdProducto(List<Long> idProducto) {
-		this.idProducto = idProducto;
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
 	}
+
+
 
 
 	

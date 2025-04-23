@@ -1,13 +1,11 @@
 package com.clientes.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clientes.dto.ClienteDTO;
 import com.clientes.services.ClienteService;
 import com.commons.controllers.CommonsController;
 
-@RequestMapping("/api/v1/clientes")
 @RestController
 public class ClienteController extends CommonsController<ClienteDTO, ClienteService> {
 
