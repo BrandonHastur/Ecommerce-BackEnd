@@ -16,7 +16,7 @@ public class ProductoDTO {
 	
 	@Min(value = 1 , message = " no puede ser negativo o igual a cero")
 	@NotNull(message = "El precio no puede ser nulo")
-	Long precio;
+	Double precio;
 	
 	@Min(value = 0 , message = "El stock no puede ser negativo")
 	@NotNull(message = "El stock no puede ser nulo")
@@ -46,11 +46,11 @@ public class ProductoDTO {
 		this.descripcion = descripcion;
 	}
 
-	public Long getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Long precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 

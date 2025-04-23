@@ -25,7 +25,7 @@ public class Producto {
 	String descripcion;
 	
 	@Column(name = "PRECIO")
-	Long precio;
+	Double precio;
 	
 	@Column(name = "STOCK")
 	Long stock;
@@ -55,11 +55,11 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
-	public Long getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(Long precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 

@@ -1,5 +1,7 @@
 package com.commons.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,13 +24,13 @@ public class Pedido {
 	Long idCliente;
 	
 	@Column(name = "TOTAL")
-	Long total;
+	Double total;
 	
 	@Column(name = "ID_ESTATUS")
 	Long idEstatus;
 	
 	@Column(name = "ID_PRODUCTO")
-	Long idProducto;
+	List<Long> idProducto;
 
 	public Long getId() {
 		return id;
@@ -46,11 +48,11 @@ public class Pedido {
 		this.idCliente = idCliente;
 	}
 
-	public Long getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Long total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 
@@ -61,6 +63,15 @@ public class Pedido {
 	public void setIdEstatus(Long idEstatus) {
 		this.idEstatus = idEstatus;
 	}
+
+	public List<Long> getIdProducto() {
+		return idProducto;
+	}
+
+	public void setIdProducto(List<Long> idProducto) {
+		this.idProducto = idProducto;
+	}
+
 
 	
 
