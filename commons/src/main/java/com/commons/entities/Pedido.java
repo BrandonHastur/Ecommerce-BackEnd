@@ -83,9 +83,15 @@ public class Pedido {
 		this.productos = productos;
 	}
 
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", total=" + total + ", idEstatus=" + idEstatus
+				+ ", productos=" + productos + "]";
+	}
 
 
 
+	
 	
 
 }

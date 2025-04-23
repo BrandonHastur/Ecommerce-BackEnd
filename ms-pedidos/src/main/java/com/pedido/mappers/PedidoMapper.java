@@ -30,11 +30,13 @@ public class PedidoMapper extends CommonsMapper<PedidoDTO, Pedido, PedidoReposit
 		PedidoDTO dto = new PedidoDTO();
 		dto.setId(entity.getId());
 		dto.setIdEstatus(entity.getIdEstatus());
+		dto.setIdCliente(entity.getCliente().getId());
 		 // Convertimos lista de productos a lista de IDs
-	    List<Long> ids = entity.getProductos().stream()
+	    List<Long> idP = entity.getProductos().stream()
 	        .map(Producto::getId)
 	        .collect(Collectors.toList());
-	    dto.setIdProducto(ids);		
+	    dto.setIdProducto(idP);
+	    dto.setTotal(entity.getTotal());
 	    return dto;
 	}
 
@@ -49,10 +51,19 @@ public class PedidoMapper extends CommonsMapper<PedidoDTO, Pedido, PedidoReposit
 			    .map(id -> productoClient.getProductoById(id)) // o usar repository
 			    .collect(Collectors.toList());
 		pedido.setProductos(lista);
-		pedido.setTotal(0.0D);
+		if (pedido.getProductos() != null) {
+			pedido.setTotal(calcularTotalPedido(pedido));
+
+		}
 		return pedido;
 	}
 
-	
+	private Double calcularTotalPedido(Pedido pedido) {
+		Double total = pedido.getProductos()
+                .stream()
+                .mapToDouble(producto -> producto.getPrecio())
+                .sum();
+		return total;
+	}
 	
 }

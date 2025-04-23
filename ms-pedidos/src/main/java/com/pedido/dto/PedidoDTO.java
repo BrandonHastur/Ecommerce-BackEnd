@@ -2,25 +2,23 @@ package com.pedido.dto;
 
 import java.util.List;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class PedidoDTO {
 
 	
-	Long id;
+	private Long id;
 	
 	@NotNull(message = "El idCliente Necesita un cliente ")
-	Long idCliente;
+	private Long idCliente;
 		
-	@Max(value = 5, message = "el estatus debe ser menor 5")
-	@Min(value = 1, message = "el estatus debe ser mayor a 0")
-	@NotNull(message = "el id estatus no puede ser nulo")
-	Long idEstatus;
+	private Long idEstatus;
 	
 	@NotNull(message = "el id producto no puede ser nulo")
-	List<Long> idProducto;
+	private List<Long> idProducto;
+	
+	private Double total;
+	
 
 	public Long getId() {
 		return id;
@@ -52,6 +50,14 @@ public class PedidoDTO {
 
 	public void setIdProducto(List<Long> idProducto) {
 		this.idProducto = idProducto;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 
