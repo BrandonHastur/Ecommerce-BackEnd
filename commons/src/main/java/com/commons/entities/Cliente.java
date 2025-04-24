@@ -42,7 +42,7 @@ public class Cliente {
 	@Column(name = "DIRECCION")
 	private String direccion;
 	
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	List<Pedido> pedidos = new ArrayList<>();;
 	
@@ -112,6 +112,7 @@ public class Cliente {
 	
 	public void removePedido(Pedido pedido) {
 		this.pedidos.remove(pedido);
+		 pedido.setCliente(null); 
 	}
 	
 	@Override

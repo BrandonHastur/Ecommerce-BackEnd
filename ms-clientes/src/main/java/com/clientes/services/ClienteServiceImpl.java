@@ -103,11 +103,12 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	
 	@Transactional
 	public Cliente removePedido(Long idCliente, Long idPedido) {
-		Optional<Cliente> optCliente = repository.findById(idCliente);
-		if (optCliente.isPresent()) {
-			Optional<Pedido> optPedido = client.getPedidosById(idPedido);
-			if (optPedido.isPresent()) {
-				Cliente cliente = optCliente.get();
+	    Optional<Cliente> optCliente = repository.findById(idCliente);
+	    if (optCliente.isPresent()) {
+	        Optional<Pedido> optPedido = client.getPedidosById(idPedido);
+	        if (optPedido.isPresent()) {
+	            Cliente cliente = optCliente.get();
+	        	
 				cliente.removePedido(optPedido.get());
 				return repository.save(cliente);
 			}
