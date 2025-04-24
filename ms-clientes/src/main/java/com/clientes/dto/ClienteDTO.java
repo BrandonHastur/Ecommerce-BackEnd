@@ -1,28 +1,34 @@
 package com.clientes.dto;
 
+import java.util.List;
+
+import com.commons.entities.Pedido;
+
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 public class ClienteDTO {
 
-	Long id;
+	private Long id;
 	
 	@NotNull(message = "El nombre no puede ser nulo")
-	String nombre;
+	private String nombre;
 	
 	@NotNull(message = "El apellido no puede ser nulo")
-	String apellido;
+	private String apellido;
 	
 	@Email(message = "No es un email valido")
 	@NotNull(message = "El e-mail no puede ser nulo")
-	String email;
+	private String email;
 	
     @Digits(integer = 10, fraction = 0, message = "El teléfono debe tener exactamente 10 dígitos")
 	@NotNull(message = "El telefono no puede ser nulo")
-	Long telefono;
+    private Long telefono;
 	
-	String direccion;
+    private String direccion;
+	
+	private List<PedidoDTO> pedidos;
 
 	public Long getId() {
 		return id;
@@ -71,6 +77,15 @@ public class ClienteDTO {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+	public List<PedidoDTO> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<PedidoDTO> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 	
 	
 }

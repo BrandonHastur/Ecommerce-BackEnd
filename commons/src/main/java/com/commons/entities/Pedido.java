@@ -2,8 +2,12 @@ package com.commons.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,7 +30,8 @@ public class Pedido {
 	private Long id;
 	
 	@ManyToOne
-    @JoinColumn(name = "ID_CLIENTE") // Esta columna está en la tabla Pedido
+    @JoinColumn(name = "ID_CLIENTE")
+	@JsonBackReference// Esta columna está en la tabla Pedido
     private Cliente cliente;
 	
 	@Column(name = "TOTAL")
@@ -35,7 +40,7 @@ public class Pedido {
 	@Column(name = "ID_ESTATUS")
 	private Long idEstatus;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.MERGE  )
 	@JoinTable(name = "PEDIDO_PRODUCTO",
 	    joinColumns = @JoinColumn(name = "ID_PEDIDO"),
 	    inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))

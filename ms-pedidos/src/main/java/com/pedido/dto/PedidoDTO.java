@@ -2,6 +2,8 @@ package com.pedido.dto;
 
 import java.util.List;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class PedidoDTO {
@@ -11,7 +13,9 @@ public class PedidoDTO {
 	
 	@NotNull(message = "El idCliente Necesita un cliente ")
 	private Long idCliente;
-		
+	
+	@Max(value = 4, message = "El estatus no puede ser mayor a 4")
+	@Min(value = 1, message = "El estatus no puede ser menor a 1")
 	private Long idEstatus;
 	
 	@NotNull(message = "el id producto no puede ser nulo")

@@ -44,8 +44,13 @@ public class PedidoMapper extends CommonsMapper<PedidoDTO, Pedido, PedidoReposit
 	public Pedido dtoToEntity(PedidoDTO dto) {
 		Pedido pedido = new Pedido();
 		pedido.setId(dto.getId());
-		Cliente cliente = clienteClient.getClienteById(dto.getIdCliente());
-		pedido.setCliente(cliente); 
+		try {
+			Cliente cliente = clienteClient.getClienteById(dto.getIdCliente());
+			pedido.setCliente(cliente); 
+		} catch (Exception e) {
+		    throw new RuntimeException("El cliente con ID " + dto.getIdCliente() + " no existe.");
+		}
+
 		pedido.setIdEstatus(dto.getIdEstatus());
 		List<Producto> lista = dto.getIdProducto().stream()
 			    .map(id -> productoClient.getProductoById(id)) // o usar repository
