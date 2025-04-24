@@ -1,27 +1,33 @@
 package com.pedido.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 public class PedidoDTO {
 
 	
-	Long id;
+	private Long id;
 	
 	@NotNull(message = "El idCliente Necesita un cliente ")
-	Long idCliente;
-		
-	@Max(value = 5, message = "el estatus debe ser menor 5")
-	@Min(value = 1, message = "el estatus debe ser mayor a 0")
-	@NotNull(message = "el id estatus no puede ser nulo")
-	Long idEstatus;
+	private Long idCliente;
+	
+	@Max(value = 4, message = "El estatus no puede ser mayor a 4")
+	@Min(value = 1, message = "El estatus no puede ser menor a 1")
+	private Long idEstatus;
 	
 	@NotNull(message = "el id producto no puede ser nulo")
-	List<Long> idProducto;
-
+	private List<Long> idProducto;
+	
+	private Double total;
+	
+	@PastOrPresent(message = "La fecha de creacion no puede ser posteior al dia de hoy ")
+	private LocalDate fechaCreacion;
+	
 	public Long getId() {
 		return id;
 	}
@@ -53,6 +59,23 @@ public class PedidoDTO {
 	public void setIdProducto(List<Long> idProducto) {
 		this.idProducto = idProducto;
 	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	
 
 
 	

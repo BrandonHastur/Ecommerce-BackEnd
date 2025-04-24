@@ -4,19 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.clientes.clients.PedidosClient;
 import com.clientes.dto.ClienteDTO;
 import com.clientes.mappers.ClienteMapper;
 import com.clientes.repositories.ClienteRepository;
 import com.commons.entities.Cliente;
+import com.commons.entities.Pedido;
 import com.commons.services.CommonsServiceImpl;
 
 @Service
 public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente, ClienteMapper, ClienteRepository>
  implements ClienteService {
 
+	@Autowired
+	private PedidosClient client; 
+	
 	@Override
+	@Transactional (readOnly = true)
 	public List<ClienteDTO> listar() {
 		List<ClienteDTO> lista = new ArrayList<>();
 		repository.findAll().forEach(linea -> {
@@ -26,6 +34,7 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public Optional<ClienteDTO> obtenerPorId(Long id) {
 		Optional<Cliente> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -35,12 +44,14 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO insertar(ClienteDTO dto) {
 		Cliente cliente = repository.save(mapper.dtoToEntity(dto));
 		return mapper.entityToDTO(cliente);
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO editar(ClienteDTO dto, Long id) {
 		Optional<Cliente> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -58,6 +69,7 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO eliminar(Long id) {
 		Optional<Cliente> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -67,5 +79,42 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 		}
 		return null;
 	}
+	
+	
+	@Transactional
+	public Cliente addPedido(Long idCliente, Long idPedido) {
+	    Optional<Cliente> optCliente = repository.findById(idCliente);
+	    if (optCliente.isPresent()) {
+	        Optional<Pedido> optPedido = client.getPedidosById(idPedido);
+	        if (optPedido.isPresent()) {
+	            Cliente cliente = optCliente.get();
+	            Pedido pedido = optPedido.get();
+
+	            // Aseguramos bidirección
+	            pedido.setCliente(cliente);
+	            cliente.addPedido(pedido);
+
+	            return repository.save(cliente);
+	        }
+	    }
+	    return null;
+	}
+
+	
+	@Transactional
+	public Cliente removePedido(Long idCliente, Long idPedido) {
+	    Optional<Cliente> optCliente = repository.findById(idCliente);
+	    if (optCliente.isPresent()) {
+	        Optional<Pedido> optPedido = client.getPedidosById(idPedido);
+	        if (optPedido.isPresent()) {
+	            Cliente cliente = optCliente.get();
+	        	
+				cliente.removePedido(optPedido.get());
+				return repository.save(cliente);
+			}
+		}
+		return null;
+	}
+
 	
 }

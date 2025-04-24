@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.commons.entities.Producto;
 import com.commons.services.CommonsServiceImpl;
@@ -17,6 +18,7 @@ public class ProductoServiceImpl extends CommonsServiceImpl<ProductoDTO, Product
 implements ProductoService{
 
 	@Override
+	@Transactional (readOnly = true)
 	public List<ProductoDTO> listar() {
 		List<ProductoDTO> lista = new ArrayList<>();
 		repository.findAll().forEach(linea -> {
@@ -26,6 +28,7 @@ implements ProductoService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<ProductoDTO> obtenerPorId(Long id) {
 		Optional<Producto> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -35,12 +38,14 @@ implements ProductoService{
 	}
 
 	@Override
+	@Transactional
 	public ProductoDTO insertar(ProductoDTO dto) {
 		Producto producto = repository.save(mapper.dtoToEntity(dto));
 		return mapper.entityToDTO(producto);
 	}
 
 	@Override
+	@Transactional
 	public ProductoDTO editar(ProductoDTO dto, Long id) {
 		Optional<Producto> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -57,6 +62,7 @@ implements ProductoService{
 	}
 
 	@Override
+	@Transactional
 	public ProductoDTO eliminar(Long id) {
 		Optional<Producto> opt = repository.findById(id);
 		if (opt.isPresent()) {

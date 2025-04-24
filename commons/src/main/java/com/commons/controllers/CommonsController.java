@@ -79,4 +79,6 @@ public class CommonsController <D, S extends CommonsService<D>>{
 		return ResponseEntity.badRequest().body(errores);
 	}
 	
+
+	
 }

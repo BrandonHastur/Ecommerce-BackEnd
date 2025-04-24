@@ -1,9 +1,14 @@
 package com.commons.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,7 +31,8 @@ public class Pedido {
 	private Long id;
 	
 	@ManyToOne
-    @JoinColumn(name = "ID_CLIENTE") // Esta columna está en la tabla Pedido
+    @JoinColumn(name = "ID_CLIENTE")
+	@JsonBackReference// Esta columna está en la tabla Pedido
     private Cliente cliente;
 	
 	@Column(name = "TOTAL")
@@ -35,12 +41,15 @@ public class Pedido {
 	@Column(name = "ID_ESTATUS")
 	private Long idEstatus;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER , cascade = CascadeType.MERGE  )
 	@JoinTable(name = "PEDIDO_PRODUCTO",
 	    joinColumns = @JoinColumn(name = "ID_PEDIDO"),
 	    inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
 	private List<Producto> productos;
 
+	@Column(name = "FECHA_CREACION", nullable = true)
+	private LocalDate fechaCreacion;
+	
 	public Long getId() {
 		return id;
 	}
@@ -83,9 +92,24 @@ public class Pedido {
 		this.productos = productos;
 	}
 
+	
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", cliente=" + cliente + ", total=" + total + ", idEstatus=" + idEstatus
+				+ ", productos=" + productos + "]";
+	}
 
 
 
+	
 	
 
 }
