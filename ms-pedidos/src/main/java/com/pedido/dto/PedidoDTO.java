@@ -1,10 +1,12 @@
 package com.pedido.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 public class PedidoDTO {
 
@@ -23,7 +25,10 @@ public class PedidoDTO {
 	
 	private Double total;
 	
-
+	@NotNull(message = "La fecha no puede ser nula")
+	@PastOrPresent(message = "La fecha de creacion no puede ser posteior al dia de hoy ")
+	private LocalDate fechaCreacion;
+	
 	public Long getId() {
 		return id;
 	}
@@ -63,6 +68,15 @@ public class PedidoDTO {
 	public void setTotal(Double total) {
 		this.total = total;
 	}
+
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	
 
 
 	

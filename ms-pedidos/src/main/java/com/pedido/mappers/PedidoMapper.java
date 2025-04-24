@@ -37,6 +37,7 @@ public class PedidoMapper extends CommonsMapper<PedidoDTO, Pedido, PedidoReposit
 	        .collect(Collectors.toList());
 	    dto.setIdProducto(idP);
 	    dto.setTotal(entity.getTotal());
+	    dto.setFechaCreacion(entity.getFechaCreacion());
 	    return dto;
 	}
 
@@ -60,6 +61,7 @@ public class PedidoMapper extends CommonsMapper<PedidoDTO, Pedido, PedidoReposit
 			pedido.setTotal(calcularTotalPedido(pedido));
 
 		}
+		pedido.setFechaCreacion(dto.getFechaCreacion());
 		return pedido;
 	}
 

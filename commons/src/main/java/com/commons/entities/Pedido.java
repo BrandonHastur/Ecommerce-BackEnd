@@ -1,5 +1,6 @@
 package com.commons.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -46,6 +47,9 @@ public class Pedido {
 	    inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
 	private List<Producto> productos;
 
+	@Column(name = "FECHA_CREACION", nullable = true)
+	private LocalDate fechaCreacion;
+	
 	public Long getId() {
 		return id;
 	}
@@ -86,6 +90,15 @@ public class Pedido {
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
+	}
+
+	
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	@Override
