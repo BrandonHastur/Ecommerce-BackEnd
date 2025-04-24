@@ -1,5 +1,6 @@
 package com.pedido.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 	public PedidoDTO insertar(PedidoDTO dto) {
 		dto.setIdEstatus(1L);
 		Pedido pedido = repository.save(mapper.dtoToEntity(dto));
+		pedido.setFechaCreacion(LocalDate.now());
 		return mapper.entityToDTO(pedido);
 	}
 

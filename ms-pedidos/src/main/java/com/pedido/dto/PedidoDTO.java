@@ -25,7 +25,6 @@ public class PedidoDTO {
 	
 	private Double total;
 	
-	@NotNull(message = "La fecha no puede ser nula")
 	@PastOrPresent(message = "La fecha de creacion no puede ser posteior al dia de hoy ")
 	private LocalDate fechaCreacion;
 	
