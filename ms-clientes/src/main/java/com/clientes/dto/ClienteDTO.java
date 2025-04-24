@@ -2,8 +2,6 @@ package com.clientes.dto;
 
 import java.util.List;
 
-import com.commons.entities.Pedido;
-
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

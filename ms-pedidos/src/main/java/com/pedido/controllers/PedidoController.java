@@ -20,7 +20,6 @@ public class PedidoController extends CommonsController<PedidoDTO, PedidoService
 	
 	public PedidoController(PedidoService service) {
 		super(service);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@GetMapping("/activos")

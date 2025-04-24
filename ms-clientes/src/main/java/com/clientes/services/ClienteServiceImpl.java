@@ -24,6 +24,7 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	private PedidosClient client; 
 	
 	@Override
+	@Transactional (readOnly = true)
 	public List<ClienteDTO> listar() {
 		List<ClienteDTO> lista = new ArrayList<>();
 		repository.findAll().forEach(linea -> {
@@ -33,6 +34,7 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public Optional<ClienteDTO> obtenerPorId(Long id) {
 		Optional<Cliente> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -42,12 +44,14 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO insertar(ClienteDTO dto) {
 		Cliente cliente = repository.save(mapper.dtoToEntity(dto));
 		return mapper.entityToDTO(cliente);
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO editar(ClienteDTO dto, Long id) {
 		Optional<Cliente> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -65,6 +69,7 @@ public class ClienteServiceImpl  extends CommonsServiceImpl<ClienteDTO, Cliente,
 	}
 
 	@Override
+	@Transactional
 	public ClienteDTO eliminar(Long id) {
 		Optional<Cliente> opt = repository.findById(id);
 		if (opt.isPresent()) {

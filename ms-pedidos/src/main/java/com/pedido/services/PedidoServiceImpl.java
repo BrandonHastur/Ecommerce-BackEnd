@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.commons.entities.Pedido;
 import com.commons.services.CommonsServiceImpl;
@@ -19,6 +20,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 	
 	
 	@Override
+	@Transactional (readOnly = true)
 	public List<PedidoDTO> listar() {
 		List<PedidoDTO> lista = new ArrayList<>();
 		repository.findAll().forEach(linea -> {
@@ -28,6 +30,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Optional<PedidoDTO> obtenerPorId(Long id) {
 		Optional<Pedido> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -37,6 +40,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 	}
 
 	@Override
+	@Transactional
 	public PedidoDTO insertar(PedidoDTO dto) {
 		dto.setIdEstatus(1L);
 		Pedido pedido = repository.save(mapper.dtoToEntity(dto));
@@ -44,6 +48,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 	}
 
 	@Override
+	@Transactional
 	public PedidoDTO editar(PedidoDTO dto, Long id) {
 		Optional<Pedido> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -59,6 +64,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 
 
 	@Override
+	@Transactional
 	public PedidoDTO eliminar(Long id) {
 		Optional<Pedido> opt = repository.findById(id);
 		if (opt.isPresent()) {
@@ -70,7 +76,7 @@ public class PedidoServiceImpl extends CommonsServiceImpl<PedidoDTO, Pedido, Ped
 		return null;
 	}
 	
-	
+	@Transactional
 	public List<PedidoDTO> listarPedidosActivos() {
 		List<PedidoDTO> lista = new ArrayList<>();
 		repository.buscarPedidosActivos().forEach(linea -> {
