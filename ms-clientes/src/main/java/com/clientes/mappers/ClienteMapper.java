@@ -42,6 +42,12 @@ public class ClienteMapper extends CommonsMapper<ClienteDTO, Cliente, ClienteRep
 
 	@Override
 	public Cliente dtoToEntity(ClienteDTO dto) {
+	    if (dto.getTelefono() != null) {
+	        int longitud = String.valueOf(dto.getTelefono()).length();
+	        if (longitud != 10) {
+	            throw new IllegalArgumentException("El teléfono debe tener exactamente 10 dígitos");
+	        }
+	    }
 		Cliente cliente = new Cliente();
 		cliente.setId(dto.getId());
 		cliente.setNombre(dto.getNombre());

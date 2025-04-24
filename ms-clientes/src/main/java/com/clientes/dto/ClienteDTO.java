@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class ClienteDTO {
 
@@ -20,7 +21,6 @@ public class ClienteDTO {
 	@NotNull(message = "El e-mail no puede ser nulo")
 	private String email;
 	
-    @Digits(integer = 10, fraction = 0, message = "El teléfono debe tener exactamente 10 dígitos")
 	@NotNull(message = "El telefono no puede ser nulo")
     private Long telefono;
 	
